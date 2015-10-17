@@ -17,6 +17,7 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
       $scope.username = window.localStorage.username;
       console.log("in1");
     });
+    console.log("after");
   } else {
     $scope.username = window.localStorage.username || {};
   }
