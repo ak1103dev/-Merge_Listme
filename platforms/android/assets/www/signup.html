@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/ngStorage.min.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/user.js"></script>
+  </head>
+  <body ng-app="user">
+    <ion-pane>
+      <ion-header-bar class="bar-energized">
+        <h1 class="title" style="text-align:center">ListMe</h1>
+      </ion-header-bar>
+      <ion-content>
+        <h3 class="title" style="text-align:center;color:blue"><b>Sign Up<b></h3>
+        <form ng-submit="signup()" ng-controller="SignUpController">
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Username</span>
+              <input type="text" ng-model="username" placeholder="6 to 18 characters">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">E-mail</span>
+              <input type="email" ng-model="email" placeholder="E-mail">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="password" placeholder="at least 18 characters">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Confirm Password</span>
+              <input type="password" ng-model="confirm_password" placeholder="at least 18 characters">
+            </label>
+            <center><i style="color:red">{{message}}</i></center>
+          </div>
+          <div class="padding">
+            <center>
+              <button type="submit" class="button button-energized">Sign Up</button>
+              <a class="button icon-left ion-chevron-left" ng-href="login.html">Back</a>
+            </center>
+          </div>
+        </form>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<ion-view >
+  <ion-content class="has-subheader padding" style="height:550px">
+
+    <div>
+      <div class="card sample-show-hide" class="sample-show-hide" ng-hide="task.done == 0" ng-repeat="task in activeProject.tasks | orderBy : 'date' ">
+        <div class="item item-divider" style="background-color:#FFD633;color:white">
+          {{task.date |date:'fullDate' }}
+        </div>
+        <div class="item sample-show-hide " ng-hide="minitask.done != true" ng-repeat="minitask in task.title">
+          <i class="icon ion-reply" ng-click="checkboxToggle(activeProject.tasks.indexOf(task),$index)"></i>
+          {{minitask.name}}
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-view>

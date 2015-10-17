@@ -1,0 +1,124 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-header-bar class="bar-energized">
+      <button class="button button-icon" ng-click="toggleProjects()">
+        <i class="icon ion-navicon"></i>
+      </button>
+      <h1 class="title" style="text-align:center">{{activeProject.title}}
+      </h1>
+      <!-- New Task button-->
+      <button class="button button-icon" ng-click="newTask()">
+        <i class="icon ion-compose"></i>
+      </button>
+    </ion-header-bar>
+    <ion-nav-view animation="slide-left-right" name="menuContent"></ion-nav-view>
+    <ion-tabs class="tabs-white tabs-icon-only">
+
+      <ion-tab href="#/app/active" icon-off="ion-ios-compose-outline" icon-on="ion-ios-compose">
+        <!-- Tab 1 content -->
+      </ion-tab>
+
+      <ion-tab href="#/app/complete" icon-off="ion-ios-star-outline" icon-on="ion-ios-star">
+        <!-- Tab 2 content -->
+      </ion-tab>
+
+      <ion-tab icon-off="ion-ios-trash-outline" icon-on="ion-ios-trash" ng-click="clearTaskComplete()">
+        <!-- Tab 3 content -->
+      </ion-tab>
+
+    </ion-tabs>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+
+    <ion-header-bar class="bar-energized">
+      <i class="icon ion-happy-outline" style="font-size:30px;margin-left:10px"></i>
+      <h2 class="title" style="color:white">{{username}}</h2>
+    </ion-header-bar>
+    <div class="bar bar-subheader " style="background-color:#FFD633;color:white">
+      <h1 class="title">Group({{projects.length}})</h1>
+      <button class="button button-i  con ion-plus" ng-click="newProject()"></button>
+    </div>
+    <!-- <ion-content class="has-subheader padding"> -->
+    <ion-content style="margin-top:43px">
+      <ion-list>
+        <ion-item ng-class="{active: activeProject == project}" ng-click="selectProject(project, $index)" ng-repeat="project in projects">
+          {{project.title}}
+          <i class="ion-backspace" ng-click="showConfirmDeleteProject($index)" style="float:right"></i>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <div class="bar  bar-footer bar-energized">
+      <div class="title" ng-click="">Log out</div>
+      <!-- <div class="title" ng-click="">{{get}}</div> -->
+    </div>
+  </ion-side-menu>
+</ion-side-menus>
+
+<!-- footer
+
+<!-- <div class="tabs tabs-icon-left tabs-light">
+  <a class="tab-item" href="#/app/active">
+    <i class="icon ion-ios-compose"></i>
+    Active
+  </a>
+  <a class="tab-item" href="#/app/complete">
+    <i class="icon ion-flag"></i>
+    Complete
+  </a>
+  <a class="tab-item" ng-click="clearTaskComplete()">
+    <i class="icon ion-trash-a"></i>
+    Clear
+  </a>
+</div> -->
+<!-- button create task -->
+<script id="new-task.html" type="text/ng-template">
+
+  <div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">New Task</h1>
+      <button class="button button-clear button-energized" ng-click="closeNewTask()">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+      <form  name = "myform" ng-submit="createTask(task)">
+        <div class="list">
+          <label class="item item-input">
+            <input ng-model="task.title" placeholder="What do you need to do?" type="text">
+
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Date</span>
+            <input ng-model="task.date" type="date">
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Hour:{{task.hour}}</span>
+
+             <input type="range" ng-model="task.hour" min="0" max="23" value="0">
+            <!-- <input max="23" min="0" ng-model="task.hour" type="number"> -->
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Minute:{{task.minute}}</span>
+            <input type="range" ng-model="task.minute" min="0" max="59" value="0">
+
+          </label>
+          <!-- <div role="alert">
+            <span class="error" ng-show="myForm.input.$error.number">
+              Not valid number!</span>
+          </div> -->
+        </div>
+        <div class="padding">
+          <button class="button button-block button-energized" type="submit">Create Task</button>
+        </div>
+      </form>
+
+    </ion-content>
+
+  </div>
+
+</script>

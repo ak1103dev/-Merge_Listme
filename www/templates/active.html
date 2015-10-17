@@ -1,0 +1,28 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view >
+
+  <ion-content class="has-subheader padding" style="height:550px">
+    <div>
+      <div class="card sample-show-hide" class="sample-show-hide" ng-hide="(task.done == task.title.length && task.done != 0 ) || task.title.length == 0" ng-repeat="task in activeProject.tasks | orderBy : 'dateSort' ">
+        <div class="item item-divider" style="background-color:#FFD633;color:white">
+          {{task.date |date:'fullDate' }}
+        </div>
+        
+        <div class="item sample-show-hide " ng-hide="minitask.done == true" ng-repeat="minitask in task.title | orderBy : ['hour','minute']">
+
+          <i class="icon ion-android-checkbox-outline-blank" ng-click="checkboxToggle(activeProject.tasks.indexOf(task),task.title.indexOf(minitask))" style="font-size:22px"></i>
+          <span ng-click="editItem()" ng-hide="editing">{{minitask.hour }}:{{minitask.minute}}
+            {{minitask.name}}</span>
+          <i class="ion-close-circled" ng-click="showConfirm(activeProject.tasks.indexOf(task),task.title.indexOf(minitask))" style="float:right"></i>
+          <form ng-submit="doneEditing()">
+            <input autofocus class="pe" ng-blur="doneEditing()" ng-model="minitask.name" ng-show="editing">
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-view>
