@@ -25,7 +25,7 @@ user.controller('SignUpController', ['$scope', '$http', '$window', function($sco
 }]);
 
 user.controller('LoginController', ['$scope', '$http', '$window', function($scope, $http, $window) {
-  window.localStorage.clear();
+  // window.localStorage.clear();
   $scope.login = function() {
     $http.post(host + '/login', { 
       "email": $scope.email, 
@@ -46,7 +46,10 @@ user.controller('LoginController', ['$scope', '$http', '$window', function($scop
   };
 }]);
 
-user.controller('SocialController', function($scope, $window, $cordovaOauth) {
+user.controller('SocialController', function($scope, $window, $cordovaOauth) {  
+  if ($window.localStorage.accessToken)
+      $window.location.href = "index.html"
+
   $scope.facebook = function() {
     $cordovaOauth.facebook("103987536624323", ["email"]).then(function(result) {
         $window.localStorage.accessToken = result.access_token;
@@ -57,15 +60,15 @@ user.controller('SocialController', function($scope, $window, $cordovaOauth) {
     });
   };
 
-  $scope.google = function() {
-    $cordovaOauth.google("514409452618-2ensbdk1oaeaqs4aik553mb3n7prt1oi.apps.googleusercontent.com ", ["email"]).then(function(result) {
-        //$window.localStorage.accessToken = result.access_token;
-        $window.location.href = "index.html";
-    }, function(error) {
-        alert("There was a problem signing in!  See the console for logs");
-        console.log(error);
-    });
-  };
+  // $scope.google = function() {
+  //   $cordovaOauth.google("514409452618-2ensbdk1oaeaqs4aik553mb3n7prt1oi.apps.googleusercontent.com ", ["email"]).then(function(result) {
+  //       //$window.localStorage.accessToken = result.access_token;
+  //       $window.location.href = "index.html";
+  //   }, function(error) {
+  //       alert("There was a problem signing in!  See the console for logs");
+  //       console.log(error);
+  //   });
+  // };
 });
 
 /*

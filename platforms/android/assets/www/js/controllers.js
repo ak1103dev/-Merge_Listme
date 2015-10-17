@@ -9,7 +9,32 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
 
 
 .controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate, $ionicPopup,$filter) {
-  $scope.username = Projects.username();
+  window.localStorage.accessToken = "CAABek3wuesMBAOiIsu847UpikZAGyZAoYzU7yfUnFb3MuBennOMWBHZBDwwIp2iwGj3bYSzlIlxNRrc02ZBzQ836PScsHL1tv7gZAWFh7qZCZCOWGO3sh9JZCJsC7ezSZBSFGlZCanesak5GswZCzQtQVOgSzqDVX0bd6yJLpyU9ZAQAubZAjlmcSVa4sWXGpz2sfcuZCCZA2sHs0Bf22ZCFBt1HaRwf";
+  if(window.localStorage.hasOwnProperty("accessToken") === true) {  
+    Projects.getFacebookData().then(function(result) {
+      window.localStorage.username = result.data.first_name;
+      window.localStorage.email = result.data.email;
+      window.localStorage.id = result.data.id;
+      $scope.username = window.localStorage.username;
+      console.log("in1");
+    });
+  } else {
+    $scope.username = window.localStorage.username || {};
+  }
+
+  // if(window.localStorage.hasOwnProperty("accessToken") === true && window.localStorage.id) {  
+  //   Projects.sendFacebookData().success(function(data) {
+  //     console.log(data);
+  //   });
+  // }
+
+  $scope.logout = function() {
+    Projects.logout();
+  };
+
+  $scope.refresh = function() {
+    window.location.href = "index.html";
+  };
 
   // Projects.get();
   // $scope.get = window.localStorage.mydata;

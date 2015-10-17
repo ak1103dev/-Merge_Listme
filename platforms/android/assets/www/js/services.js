@@ -19,19 +19,39 @@ angular.module('ListMe.service', [])
     //     });
     // },
 
-    logout: function() {
-      return $http.get(host + '/logout')
-        .success(function(data) {
-          return data;
-        });
+    getFacebookData: function() {
+      return $http.get("https://graph.facebook.com/v2.2/me", { params: { 
+        access_token: window.localStorage.accessToken, 
+        fields: "id,first_name,email", 
+        format: "json" 
+      }}).then(function(result) {
+          return result;
+      }, function(error) {
+          alert("There was a problem getting your profile.  Check the logs for details.");
+          console.log(error);
+      });
     },
 
-    username: function() {
-      var username = window.localStorage.username;
-      if(username) {
-        return username;
-      }
-      return {};
+    sendFacebookData: function() {
+      $http.post(host + '/facebook', {
+        "id": window.localStorage.id,
+        "email": window.localStorage.email,
+        "name": window.localStorage.username
+      }).success(function(data) {
+        return data;
+      });
+    },
+
+    logout: function() {
+      // console.log("logout");
+      window.localStorage.clear();
+      window.location.href = "login.html";
+      // return window.localStorage.username = "xxxxx";
+
+      // return $http.get(host + '/logout')
+      //   .success(function(data) {
+      //     return data;
+      //   });
     },
 
     all: function() {
