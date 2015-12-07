@@ -14,6 +14,8 @@
           <span ng-click="editItem()" ng-hide="editing">{{minitask.hour }}:{{minitask.minute}}
             {{minitask.name}}</span>
           <i class="ion-close-circled" ng-click="showConfirm(activeProject.tasks.indexOf(task),task.title.indexOf(minitask))" style="float:right"></i>
+          <a class="button button-clear button-energized" href="map.html">Map</a>
+          <a class="button button-clear button-energized" href="showMap.html">kasetsart university</a>
           <form ng-submit="doneEditing()">
             <input autofocus class="pe" ng-blur="doneEditing()" ng-model="minitask.name" ng-show="editing">
           </form>

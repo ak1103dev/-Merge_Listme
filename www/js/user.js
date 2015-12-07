@@ -25,7 +25,9 @@ user.controller('SignUpController', ['$scope', '$http', '$window', function($sco
 }]);
 
 user.controller('LoginController', ['$scope', '$http', '$window', function($scope, $http, $window) {
-  // window.localStorage.clear();
+  // if ($window.localStorage.username)
+  //   $window.location.href = 'index.html'
+
   $scope.login = function() {
     $http.post(host + '/login', { 
       "email": $scope.email, 
@@ -46,31 +48,56 @@ user.controller('LoginController', ['$scope', '$http', '$window', function($scop
   };
 }]);
 
-user.controller('SocialController', function($scope, $window, $cordovaOauth) {  
-  if ($window.localStorage.accessToken)
-      $window.location.href = "index.html"
+user.controller('SocialController', function($scope, $window, $cordovaOauth, facebookData) {
+  // if ($window.localStorage.accessToken)
+  //     $window.location.href = "index.html"
 
   $scope.facebook = function() {
     $cordovaOauth.facebook("103987536624323", ["email"]).then(function(result) {
         $window.localStorage.accessToken = result.access_token;
-        $window.location.href = "index.html";
+        facebookData.getFacebookData().then(function(result) {
+          window.localStorage.username = result.data.first_name;
+          window.localStorage.email = result.data.email;
+          window.localStorage.id = result.data.id;
+          facebookData.sendFacebookData().success(function(data) {
+            // console.log(data);
+            $window.location.href = "index.html";
+          });
+        });
     }, function(error) {
         alert("There was a problem signing in!  See the console for logs");
         console.log(error);
     });
   };
-
-  // $scope.google = function() {
-  //   $cordovaOauth.google("514409452618-2ensbdk1oaeaqs4aik553mb3n7prt1oi.apps.googleusercontent.com ", ["email"]).then(function(result) {
-  //       //$window.localStorage.accessToken = result.access_token;
-  //       $window.location.href = "index.html";
-  //   }, function(error) {
-  //       alert("There was a problem signing in!  See the console for logs");
-  //       console.log(error);
-  //   });
-  // };
 });
 
+user.factory('facebookData', ['$http', function($http) {
+  var host = 'http://research27.ml:1103';
+  return {
+    getFacebookData: function() {
+      return $http.get("https://graph.facebook.com/v2.2/me", { params: { 
+        access_token: window.localStorage.accessToken, 
+        fields: "id,first_name,email", 
+        format: "json" 
+      }}).then(function(result) {
+          return result;
+      }, function(error) {
+          alert("There was a problem getting your profile.  Check the logs for details.");
+          console.log(error);
+      });
+    },
+
+    sendFacebookData: function() {
+      return $http.post(host + '/facebook', {
+        "id": window.localStorage.id,
+        "email": window.localStorage.email,
+        "name": window.localStorage.username
+      }).success(function(data) {
+        return data;
+      });
+    }
+  }
+}]);
 /*
 user.controller('PhotoController', ['$scope', 'photos', function($scope, photos) {
     photos.success(function(data) {

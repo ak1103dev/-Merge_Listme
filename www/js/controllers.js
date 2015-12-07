@@ -9,23 +9,20 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
 
 
 .controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate, $ionicPopup,$filter) {
-  if(window.localStorage.hasOwnProperty("accessToken") === true) {  
-    Projects.getFacebookData().then(function(result) {
-      window.localStorage.username = result.data.first_name;
-      window.localStorage.email = result.data.email;
-      window.localStorage.id = result.data.id;
-      $scope.username = window.localStorage.username;
-      console.log("in1");
-    });
-    console.log("after");
-  } else {
-    $scope.username = window.localStorage.username || {};
-  }
-
-  // if(window.localStorage.hasOwnProperty("accessToken") === true && window.localStorage.id) {  
-  //   Projects.sendFacebookData().success(function(data) {
-  //     console.log(data);
+  // if(window.localStorage.hasOwnProperty("accessToken") === true) {  
+  //   Projects.getFacebookData().then(function(result) {
+  //     window.localStorage.username = result.data.first_name;
+  //     window.localStorage.email = result.data.email;
+  //     window.localStorage.id = result.data.id;
+  //     $scope.username = window.localStorage.username;
+  //     Projects.sendFacebookData().success(function(data) {
+  //       console.log(data);
+  //     });
+  //     console.log("in1");
   //   });
+  //   console.log("after");
+  // } else {
+    $scope.username = window.localStorage.username || {};
   // }
 
   $scope.logout = function() {

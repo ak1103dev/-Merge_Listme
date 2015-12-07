@@ -33,10 +33,12 @@ angular.module('ListMe.service', [])
     },
 
     sendFacebookData: function() {
-      $http.post(host + '/facebook', {
+      return $http.post(host + '/fb-login', {
         "id": window.localStorage.id,
-        "email": window.localStorage.email,
-        "name": window.localStorage.username
+        "password": {
+            "email": window.localStorage.email,
+            "name": window.localStorage.username
+        }
       }).success(function(data) {
         return data;
       });
