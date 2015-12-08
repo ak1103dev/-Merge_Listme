@@ -47,19 +47,21 @@ function initAutocomplete() {
     marker.setVisible(true);
 
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-         'Place ID: ' + place.place_id + '<br>' +
+        'Place ID: ' + place.place_id + '<br>' +
         place.formatted_address);
 
-    // window.localStorage.map = JSON.stringify({
-    //   name: plac.name,
-    //   place_id: place.place_id,
-    //   lat: place.geometry.location.lat(),
-    //   lng: place.geometry.location.lng()
-    // });
-
-    //var x = JSON.parse(window.localStorage.map);
-    //console.log(x.lat);
     infowindow.open(map, marker);
+
+    window.localStorage.map = JSON.stringify({
+      name: place.name,
+      place_id: place.place_id,
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng()
+    });
+
+    // var x = JSON.parse(window.localStorage.map);
+    // console.log(x);
+
   });
   
 }

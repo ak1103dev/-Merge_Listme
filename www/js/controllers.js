@@ -64,6 +64,12 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
   // Grab the last active, or the first project
   $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
 
+  $scope.saveMap = function(minitask) {
+    console.log(minitask);
+    var x = JSON.parse(window.localStorage.map);
+    minitask.map = x;
+    Projects.save($scope.projects);
+  }
   // edit text
     $scope.editItem = function () {
         $scope.editing = true;
@@ -71,6 +77,7 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
 
     $scope.doneEditing = function () {
         $scope.editing = false;
+        Projects.save($scope.projects);
         //dong some background ajax calling for persistence...
     };
   // $scope.activeProject.active =  true;
@@ -141,7 +148,13 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
           name: task.title,
           done: false,
           hour:hourTemp,
-          minute:minuteTemp
+          minute:minuteTemp,
+          map:{
+            name:"no map",
+            place_id:"",
+            lat:13,
+            lng:100
+          }
         });
         useTo = true;
       }
@@ -153,7 +166,13 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
           name: task.title,
           done: false,
           hour:hourTemp,
-          minute:minuteTemp
+          minute:minuteTemp,
+          map:{
+            name:"no map",
+            place_id:"",
+            lat:13,
+            lng:100
+          }
         }],
         done: 0,
         date: valDay,
