@@ -76,6 +76,7 @@ angular.module('ListMe.service', [])
       return {
         title: projectTitle,
         tasks: [],
+        numFinishedTask: 0,
         active:true
       };
     },
