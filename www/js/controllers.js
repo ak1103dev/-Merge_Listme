@@ -65,11 +65,17 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
   $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
 
   $scope.saveMap = function(minitask) {
-    console.log(minitask);
     var x = JSON.parse(window.localStorage.map);
     minitask.map = x;
+    console.log(minitask.map);
     Projects.save($scope.projects);
   }
+
+  $scope.showMap = function(map) {
+    console.log(map);
+    window.localStorage.showmap = JSON.stringify(map);
+    console.log(window.localStorage.showmap);
+  } 
   // edit text
     $scope.editItem = function () {
         $scope.editing = true;

@@ -47,7 +47,7 @@ function initAutocomplete() {
     marker.setVisible(true);
 
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-        'Place ID: ' + place.place_id + '<br>' +
+        // 'Place ID: ' + place.place_id + '<br>' +
         place.formatted_address);
 
     infowindow.open(map, marker);
@@ -59,8 +59,8 @@ function initAutocomplete() {
       lng: place.geometry.location.lng()
     });
 
-    // var x = JSON.parse(window.localStorage.map);
-    // console.log(x);
+    var x = JSON.parse(window.localStorage.map);
+    console.log(x);
 
   });
   

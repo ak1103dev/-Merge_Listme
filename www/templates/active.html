@@ -20,9 +20,9 @@
             <input autofocus class="pe" ng-blur="doneEditing()" ng-model="minitask.name" ng-show="editing">
           </form>
           <br><a class="button button-clear button-energized" href="map.html">Map</a>
-          <br><a class="button button-clear button-energized" href="showMap.html">{{minitask.map.name}}</a>
+          <br><a class="button button-clear button-energized" href="showMap.html" ng-hide="minitask.map.name == 'no map'" ng-click="showMap(minitask.map)">{{minitask.map.name}}</a>
           <br><button class="button button button-energized button-small" ng-click="saveMap(minitask)">Save</button><br>
-          <!-- <span>{{minitask}}</span> --> 
+          <!-- <span>{{minitask}}</span>  -->
         </div>
       </div>
     </div>
