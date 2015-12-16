@@ -26,13 +26,13 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
   // }
 
   $ionicPlatform.ready(function() {
-    $scope.scheduleSingleNotification = function(dateTime) {
+    $scope.scheduleSingleNotification = function(dateTime, taskName) {
       var alert = new Date(dateTime);
 
       $cordovaLocalNotification.schedule({
         id: 1,
-        title: 'Warning',
-        text: 'Youre so sexy!',
+        title: taskName,
+        text: 'Time Out!!!',
         at: alert
       }).then(function (result) {
         console.log('Notification 1 triggered');
@@ -203,8 +203,8 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
     $scope.taskModal.hide();
     Projects.save($scope.projects);
     $scope.activeProject.active = true;
+    $scope.scheduleSingleNotification(valDay + " " + hourTemp + ":" + minuteTemp, task.title);
     task.title = "";
-    $scope.scheduleSingleNotification(valDay + " " + hourTemp + ":" + minuteTemp);
   };
 
   $scope.newTask = function() {
