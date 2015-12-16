@@ -8,7 +8,7 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
  */
 
 
-.controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate, $ionicPopup,$filter) {
+.controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate, $ionicPopup, $filter, $cordovaLocalNotification, $ionicPlatform) {
   // if(window.localStorage.hasOwnProperty("accessToken") === true) {  
   //   Projects.getFacebookData().then(function(result) {
   //     window.localStorage.username = result.data.first_name;
@@ -24,6 +24,21 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
   // } else {
     $scope.username = window.localStorage.username || {};
   // }
+
+  $ionicPlatform.ready(function() {
+    $scope.scheduleSingleNotification = function(dateTime) {
+      var alert = new Date(dateTime);
+
+      $cordovaLocalNotification.schedule({
+        id: 1,
+        title: 'Warning',
+        text: 'Youre so sexy!',
+        at: alert
+      }).then(function (result) {
+        console.log('Notification 1 triggered');
+      });
+    };
+  });
 
   $scope.logout = function() {
     Projects.logout();
@@ -147,7 +162,7 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
 
       var StrTask = JSON.stringify($scope.activeProject.tasks[i].date);
       console.log(StrTask);
-      console.log(valDay);
+      console.log(valDay + " " + hourTemp + ":" + minuteTemp);
       if (JSON.stringify(valDay) == StrTask) {
         console.log('hit same day');
         $scope.activeProject.tasks[i].title.push({
@@ -189,6 +204,7 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
     Projects.save($scope.projects);
     $scope.activeProject.active = true;
     task.title = "";
+    $scope.scheduleSingleNotification(valDay + " " + hourTemp + ":" + minuteTemp);
   };
 
   $scope.newTask = function() {

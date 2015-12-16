@@ -1,4 +1,4 @@
-angular.module('ListMe', ['ionic', 'ListMe.controllers', 'ListMe.service'])
+angular.module('ListMe', ['ionic', 'ListMe.controllers', 'ListMe.service', 'ngCordova'])
 
 
 /**
