@@ -31,8 +31,8 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
 
       $cordovaLocalNotification.schedule({
         id: 1,
-        title: taskName,
-        text: 'Time Out!!!',
+        title: 'ListMe',
+        text: 'You forget ' + '\"' + taskName + '\"',
         at: alert
       }).then(function (result) {
         console.log('Notification 1 triggered');
