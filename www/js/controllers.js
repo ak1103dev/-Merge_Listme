@@ -25,12 +25,13 @@ angular.module('ListMe.controllers', ['ui.bootstrap.datetimepicker'])
     $scope.username = window.localStorage.username || {};
   // }
 
+  $scope.iddd = 0;
   $ionicPlatform.ready(function() {
     $scope.scheduleSingleNotification = function(dateTime, taskName) {
       var alert = new Date(dateTime);
 
       $cordovaLocalNotification.schedule({
-        id: 1,
+        id: ++$scope.iddd,
         title: 'ListMe',
         text: 'You forget ' + '\"' + taskName + '\"',
         at: alert
